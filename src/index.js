@@ -310,7 +310,7 @@ InputMask.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   onMouseDown: PropTypes.func,
-  customInputRef: PropTypes.shape({ current: PropTypes.element }),
+  customInputRef: PropTypes.shape({ current: PropTypes.element })
 };
 
 export default InputMask;
