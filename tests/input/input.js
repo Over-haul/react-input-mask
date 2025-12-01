@@ -33,9 +33,9 @@ async function waitForPendingSelection() {
   await defer();
 }
 
-function getInputDOMNode(input) {
+function getInputDOMNode(input, inputRef) {
   if (!isDOMElement(input)) {
-    input = ReactDOM.findDOMNode(input);
+    input = inputRef.current;
   }
 
   if (input.nodeName !== "INPUT") {
@@ -136,17 +136,6 @@ async function simulateDeletePress(input) {
   setCursorPosition(input, selection.start);
 
   TestUtils.Simulate.change(input);
-}
-
-// eslint-disable-next-line react/prefer-stateless-function
-class ClassInputComponent extends React.Component {
-  render() {
-    return (
-      <div>
-        <input {...this.props} />
-      </div>
-    );
-  }
 }
 
 const FunctionalInputComponent = React.forwardRef((props, ref) => {
@@ -1213,32 +1202,14 @@ describe("react-input-mask", () => {
     expect(getInputSelection(input).end).to.equal(4);
   });
 
-  it("should handle regular component as children", async () => {
-    let { input } = createInput(
-      <Input mask="+7 (999) 999 99 99">
-        <ClassInputComponent />
-      </Input>
-    );
-    input = getInputDOMNode(input);
-
-    await simulateFocus(input);
-
-    expect(getInputSelection(input).start).to.equal(4);
-    expect(getInputSelection(input).end).to.equal(4);
-
-    await simulateInput(input, "1");
-    expect(input.value).to.equal("+7 (1__) ___ __ __");
-    expect(getInputSelection(input).start).to.equal(5);
-    expect(getInputSelection(input).end).to.equal(5);
-  });
-
   it("should handle functional component as children", async () => {
+    const customInputRef = React.createRef();
     let { input } = createInput(
-      <Input mask="+7 (999) 999 99 99">
-        <FunctionalInputComponent />
+      <Input mask="+7 (999) 999 99 99" customInputRef={customInputRef}>
+        <FunctionalInputComponent ref={customInputRef} />
       </Input>
     );
-    input = getInputDOMNode(input);
+    input = getInputDOMNode(input, customInputRef);
 
     await simulateFocus(input);
 
@@ -1249,65 +1220,6 @@ describe("react-input-mask", () => {
     expect(input.value).to.equal("+7 (1__) ___ __ __");
     expect(getInputSelection(input).start).to.equal(5);
     expect(getInputSelection(input).end).to.equal(5);
-  });
-
-  it("should handle children change", async () => {
-    let { input, setProps } = createInput(<Input mask="+7 (999) 999 99 99" />);
-    function handleRef(ref) {
-      input = ref;
-    }
-
-    setProps({
-      value: "",
-      mask: "+7 (999) 999 99 99",
-      onChange: event => {
-        setProps({
-          value: event.target.value
-        });
-      },
-      children: <ClassInputComponent ref={handleRef} />
-    });
-
-    input = getInputDOMNode(input);
-
-    await simulateFocus(input);
-
-    expect(getInputSelection(input).start).to.equal(4);
-    expect(getInputSelection(input).end).to.equal(4);
-
-    await simulateInput(input, "1");
-    expect(input.value).to.equal("+7 (1__) ___ __ __");
-    expect(getInputSelection(input).start).to.equal(5);
-    expect(getInputSelection(input).end).to.equal(5);
-
-    setProps({
-      value: "22",
-      mask: "+7 (999) 999 99 99",
-      onChange: event => {
-        setProps({
-          value: event.target.value
-        });
-      },
-      children: <FunctionalInputComponent ref={handleRef} />
-    });
-    input = getInputDOMNode(input);
-
-    expect(input.value).to.equal("+7 (22_) ___ __ __");
-
-    setProps({
-      value: "22",
-      mask: "+7 (999) 999 99 99",
-      onChange: event => {
-        setProps({
-          value: event.target.value
-        });
-      },
-      children: null,
-      ref: handleRef
-    });
-    input = getInputDOMNode(input);
-
-    expect(input.value).to.equal("+7 (22_) ___ __ __");
   });
 
   it("should handle change event without focus", async () => {

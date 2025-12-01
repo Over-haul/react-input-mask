@@ -179,7 +179,6 @@ const InputMask = forwardRef(function InputMask(props, forwardedRef) {
           setInputState(newState);
         }
       };
-
       inputDocument.addEventListener("mouseup", mouseUpHandler);
     }
 
@@ -281,11 +280,23 @@ const InputMask = forwardRef(function InputMask(props, forwardedRef) {
 
   if (children) {
     validateChildren(props, children);
-
     return <ChildrenWrapper {...inputProps}>{children}</ChildrenWrapper>;
   }
 
-  return <input {...inputProps} />;
+  return (
+    <input
+      {...inputProps}
+      ref={ref => {
+        inputRef.current = ref;
+
+        if (isFunction(forwardedRef)) {
+          forwardedRef(ref);
+        } else if (forwardedRef !== null && typeof forwardedRef === "object") {
+          forwardedRef.current = ref;
+        }
+      }}
+    />
+  );
 });
 
 InputMask.displayName = "InputMask";
