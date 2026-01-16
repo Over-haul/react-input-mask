@@ -17,7 +17,7 @@ module.exports = {
     "react/jsx-props-no-spreading": OFF,
     "react/require-default-props": OFF,
     'react/no-find-dom-node': OFF,
-    "react/prop-types": [ERROR, { ignore: ["value", "defaultValue"] }],
+    "react/prop-types": OFF,
     "react-hooks/rules-of-hooks": ERROR,
     "react-hooks/exhaustive-deps": ERROR,
     "no-shadow": OFF,

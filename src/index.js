@@ -1,5 +1,4 @@
 import React, { useLayoutEffect, forwardRef } from "react";
-import PropTypes from "prop-types";
 
 import { useInputState, useInputElement, usePrevious } from "./hooks";
 import {
@@ -16,10 +15,10 @@ import ChildrenWrapper from "./children-wrapper";
 
 const InputMask = forwardRef(function InputMask(props, forwardedRef) {
   const {
-    alwaysShowMask,
+    alwaysShowMask = false,
     children,
     mask,
-    maskPlaceholder,
+    maskPlaceholder = "_",
     beforeMaskedStateChange,
     customInputRef,
     ...restProps
@@ -300,28 +299,5 @@ const InputMask = forwardRef(function InputMask(props, forwardedRef) {
 });
 
 InputMask.displayName = "InputMask";
-
-InputMask.defaultProps = {
-  alwaysShowMask: false,
-  maskPlaceholder: "_"
-};
-
-InputMask.propTypes = {
-  alwaysShowMask: PropTypes.bool,
-  beforeMaskedStateChange: PropTypes.func,
-  children: PropTypes.element,
-  mask: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(RegExp)])
-    )
-  ]),
-  maskPlaceholder: PropTypes.string,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  onMouseDown: PropTypes.func,
-  customInputRef: PropTypes.shape({ current: PropTypes.element })
-};
 
 export default InputMask;
