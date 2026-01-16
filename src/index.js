@@ -20,7 +20,7 @@ const InputMask = forwardRef(function InputMask(props, forwardedRef) {
     mask,
     maskPlaceholder = "_",
     beforeMaskedStateChange,
-    customInputRef,
+    inputRef: customInputRef,
     ...restProps
   } = props;
 

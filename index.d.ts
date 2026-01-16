@@ -37,11 +37,18 @@ export type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, "children"
    */
   alwaysShowMask?: boolean | undefined;
   /**
-   * Use inputRef instead of ref if you need input node to manage focus, selection, etc.
+   * Reference to the input element which is being masked. This element should be always passed as children of ReactInputMask.
+   * @example
+   * ```tsx
+   * const inputRef = React.createRef<HTMLInputElement>();
+   *
+   * <ReactInputMask mask="99/99/9999" inputRef={inputRef}>
+   *   <input type="text" ref={inputRef}/>
+   * </ReactInputMask>
+   * ```
    */
-  inputRef?: React.Ref<HTMLInputElement> | undefined;
+  inputRef: React.Ref<HTMLInputElement>;
 
-  customInputRef: React.Ref<HTMLInputElement>;
 
   /**
    * In case you need to implement more complex masking behavior, you can provide

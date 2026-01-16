@@ -1204,13 +1204,13 @@ describe("react-input-mask", () => {
   });
 
   it("should handle functional component as children", async () => {
-    const customInputRef = React.createRef();
+    const inputRef = React.createRef();
     let { input } = createInput(
-      <Input mask="+7 (999) 999 99 99" customInputRef={customInputRef}>
-        <FunctionalInputComponent ref={customInputRef} />
+      <Input mask="+7 (999) 999 99 99" inputRef={inputRef}>
+        <FunctionalInputComponent ref={inputRef} />
       </Input>
     );
-    input = getInputDOMNode(input, customInputRef);
+    input = getInputDOMNode(input, inputRef);
 
     await simulateFocus(input);
 
