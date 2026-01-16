@@ -41,7 +41,7 @@ export type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, "children"
    */
   inputRef?: React.Ref<HTMLInputElement> | undefined;
 
-  customInputRef?: React.Ref<HTMLInputElement> | undefined;
+  customInputRef: React.Ref<HTMLInputElement>;
 
   /**
    * In case you need to implement more complex masking behavior, you can provide
@@ -54,9 +54,7 @@ export type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, "children"
    */
   beforeMaskedStateChange?(states: BeforeMaskedStateChangeStates): InputState;
 
-  children?: (inputProps: any) => React.ReactNode;
+  children: React.ReactNode;
 };
 
-export default class ReactInputMask extends React.Component<Props> {
-  customInputRef: React.Ref<HTMLInputElement>;
-}
+export default class ReactInputMask extends React.Component<Props> {}
