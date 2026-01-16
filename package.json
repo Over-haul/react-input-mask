@@ -66,9 +66,11 @@
     "webpack-dev-server": "^3.10.1"
   },
   "main": "index.js",
+  "types": "index.d.ts",
   "files": [
     "lib",
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "lint-staged": {
     "*.js": "eslint"
