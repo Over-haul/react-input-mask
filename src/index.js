@@ -323,7 +323,7 @@ InputMask.propTypes = {
   onMouseDown: PropTypes.func,
   customInputRef: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.shape({ current: PropTypes.element })
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
   ])
 };
 
