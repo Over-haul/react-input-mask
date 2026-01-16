@@ -267,7 +267,7 @@ const InputMask = forwardRef(function InputMask(props, forwardedRef) {
     onChange: isMasked && isEditable ? onChange : props.onChange,
     onMouseDown: isMasked && isEditable ? onMouseDown : props.onMouseDown,
     ref: ref => {
-      inputRef.current = customInputRef.current;
+      inputRef.current = customInputRef?.current;
 
       if (isFunction(forwardedRef)) {
         forwardedRef(ref);
@@ -321,7 +321,10 @@ InputMask.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   onMouseDown: PropTypes.func,
-  customInputRef: PropTypes.shape({ current: PropTypes.element })
+  customInputRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.element })
+  ])
 };
 
 export default InputMask;
