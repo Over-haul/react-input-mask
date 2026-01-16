@@ -84,10 +84,10 @@
     "clean": "rimraf lib dist",
     "build": "cross-env BABEL_ENV=rollup rollup -c",
     "start": "cross-env BABEL_ENV=test NODE_ENV=development webpack-dev-server",
-    "prepare": "npm run lint && npm test && npm run clean && npm run build",
+    "prepare": "yarn clean && yarn build",
     "lint": "eslint ./src ./tests ./*.js",
     "lint-fix": "eslint --fix ./src ./tests ./*.js",
-    "test": "npm run build && npm run test:input && npm run test:server-render && npm run test:build",
+    "test": "yarn build && yarn test:input && yarn test:server-render && yarn test:build",
     "test:input": "cross-env NODE_ENV=test BABEL_ENV=test karma start",
     "test:server-render": "cross-env BABEL_ENV=test mocha --require @babel/register ./tests/server-render",
     "test:build": "cross-env BABEL_ENV=test mocha --require @babel/register ./tests/build"

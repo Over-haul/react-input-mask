@@ -1100,6 +1100,7 @@ describe("react-input-mask", () => {
       <Input
         mask="99/99/9999"
         value=""
+        // eslint-disable-next-line react/jsx-no-bind
         beforeMaskedStateChange={beforeMaskedStateChange}
       />
     );
